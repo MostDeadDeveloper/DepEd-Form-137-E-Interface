@@ -158,7 +158,11 @@ class StudentValue(models.Model):
 
 
 class Certificate(models.Model):
-    # LRN = models.CharField(max_length=15, null=True)
+    student = models.ForeignKey(
+        'student.Student',
+        null=True,
+        on_delete=models.CASCADE,
+    )
     next_grade = models.CharField(max_length=10, null=True)
     # signature
     date = models.DateField(null=True)
