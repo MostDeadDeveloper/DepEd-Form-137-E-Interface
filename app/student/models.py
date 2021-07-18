@@ -21,6 +21,16 @@ class Student(models.Model):
         null=True,
         on_delete=models.CASCADE,
     )
+    values = models.ManyToManyField(
+        'student.CoreValue',
+        through='StudentValue',
+        through_fields=('LRN', 'value'),
+    )
+    subject_records = models.ManyToManyField(
+        'student.StudentRecord',
+        through='student.SubjectRecord',
+        through_fields=('LRN','student_record')
+    )
 
 class Parent(models.Model):
     parent_name = models.CharField(max_length=15, null=True)
@@ -41,6 +51,16 @@ class StudentRecord(models.Model):
 
 
 class SubjectRecord(models.Model):
+    student_record = models.ForeignKey(
+        'student.StudentRecord',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+    LRN = models.ForeignKey(
+        'student.Student',
+        null=True,
+        on_delete=models.CASCADE,
+    )
     learning_area = models.CharField(max_length=15, null=True)
     # LRN = models.CharField(max_length=15, null=True)
     # grade_level = models.CharField(max_length=15, null=True)
@@ -50,4 +70,33 @@ class SubjectRecord(models.Model):
     fourth_grading_rating = models.IntegerField(null=True)
     remarks = models.CharField(max_length=16, null=True)
 
-class
+
+class CoreValue(models.Model):
+    value_name = models.CharField(max_length=16, null=True)
+    behavior_description = models.CharField(max_length=32, null=True)
+
+
+class StudentValue(models.Model):
+    LRN = models.ForeignKey(
+        'student.Student',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+    value = models.ForeignKey(
+        'student.CoreValue',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+    # grade_level = models.CharField(max_length=15, null=True)
+    first_grading_rating = models.IntegerField(null=True)
+    second_grading_rating = models.IntegerField(null=True)
+    third_grading_rating = models.IntegerField(null=True)
+    fourth_grading_rating = models.IntegerField(null=True)
+
+
+class Certificate(models.Model):
+    # LRN = models.CharField(max_length=15, null=True)
+    next_grade = models.CharField(max_length=10, null=True)
+    # signature
+    date = models.DateField(null=True)
+    designation = models.CharField(max_length=16, null=True)

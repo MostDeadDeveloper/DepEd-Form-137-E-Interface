@@ -1,13 +1,13 @@
 from django.db import models
 
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
 from .managers import AccountManager
 
 from core.models import BaseModel
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractUser):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -19,6 +19,15 @@ class Account(AbstractBaseUser):
         unique=False,
         blank=True,
     )
+    phone = models.CharField(
+        max_length=13,
+        unique=False,
+        blank=True,
+    )
+    first_name = models.CharField(max_length=15, null=True)
+    last_name = models.CharField(max_length=15, null=True)
+    middle_name = models.CharField(max_length=15, null=True)
+
 
     REQUIRED_FIELDS = []
 

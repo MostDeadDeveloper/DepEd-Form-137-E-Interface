@@ -12,16 +12,14 @@ class BaseRedirectView(RedirectView):
         user = self.request.user
 
         if not user.is_authenticated:
-            return reverse('account:account_login')
+            return reverse('student:form')
 
         if user.is_authenticated:
             return reverse('account:dashboard')
 
-        # if user.is_bidder:
-            # return reverse('products:all_products_bidded')
 
 
-class DashboardView(LoginGenericView):
-    template_name = 'account/dashboard.html'
+class DefaultFormView(LoginGenericView):
+    template_name = 'index.html'
 
 

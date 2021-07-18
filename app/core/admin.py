@@ -11,12 +11,6 @@ class AuditAdminSaveMixin:
     Must be the first class to be inherited if your going to use it.
 
     """
-    readonly_fields = [
-        'created_time',
-        'modified_time',
-        'created_by',
-        'modified_by',
-    ]
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -63,9 +57,5 @@ class AuditModelAdmin(AuditAdminSaveMixin, admin.ModelAdmin):
     uniformity.
 
     """
-    list_filter = [
-        'created_time',
-        'modified_time',
-        'is_active',
-    ]
+
 
