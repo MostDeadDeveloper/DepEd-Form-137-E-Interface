@@ -11,12 +11,14 @@ from .models import (
     SubjectRecord,
     CoreValue,
     Certificate,
+    Subject,
 )
 
 
 class StudentRecordInline(admin.TabularInline):
     model = StudentRecord
     fields = (
+        'grade_level',
         'school_year',
         'school',
     )
@@ -24,8 +26,7 @@ class StudentRecordInline(admin.TabularInline):
 class SubjectRecordInline(admin.TabularInline):
     model = SubjectRecord
     fields = (
-        'student_record',
-        'learning_area',
+        'subject',
         'first_grading_rating',
         'second_grading_rating',
         'third_grading_rating',
@@ -44,7 +45,7 @@ class StudentValueInline(admin.TabularInline):
     )
 
 class StudentAdmin(core_admin.AuditModelAdmin):
-    inlines = (SubjectRecordInline,StudentValueInline,)
+    inlines = (StudentRecordInline,StudentValueInline,)
 
 
 class StudentRecordAdmin(core_admin.AuditModelAdmin):
@@ -57,3 +58,4 @@ admin.site.register(StudentRecord, StudentRecordAdmin)
 admin.site.register(CoreValue)
 admin.site.register(StudentValue)
 admin.site.register(Certificate)
+admin.site.register(Subject)
